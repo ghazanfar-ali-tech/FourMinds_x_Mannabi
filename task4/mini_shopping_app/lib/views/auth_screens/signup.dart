@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mini_shopping_app/routes/app_routes.dart';
-import 'package:mini_shopping_app/views/auth_screens/login_screen.dart';
 
 import 'package:mini_shopping_app/widgets/round_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';

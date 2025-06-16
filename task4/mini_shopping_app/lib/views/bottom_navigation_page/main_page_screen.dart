@@ -43,7 +43,7 @@ class _MainPageScreenState extends State<MainPageScreen> {
         controller: _pageController,
         onPageChanged: (index) {
           setState(() {
-            _selectedIndex = index; // Update the selected index when page changes
+            _selectedIndex = index; 
           });
         },
         children: <Widget>[
@@ -51,7 +51,7 @@ class _MainPageScreenState extends State<MainPageScreen> {
           AddProductScreen(),
           BuyNowScreen(),
           MyProfileScreen(),
-          // Add any additional screens as necessary
+        
         ],
       ),
       bottomNavigationBar: Container(
@@ -64,38 +64,38 @@ class _MainPageScreenState extends State<MainPageScreen> {
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            stops: const [0.0, 0.5, 1.0], // Adjust stops for deeper effect
+            stops: const [0.0, 0.5, 1.0],
           ),
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(30)), // More rounded corners
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(30)), 
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.2), // Light shadow for elevation
+              color: Colors.black.withOpacity(0.2), 
               blurRadius: 20,
-              offset: const Offset(0, -2), // Shadow position
+              offset: const Offset(0, -2), 
             ),
           ],
         ),
         child: SafeArea(
-          top: false, // Don't apply safe area to the top
+          top: false, 
           child: Padding(
             padding: EdgeInsets.only(
               top: 10.0,
               left: isSmallScreen ? 8.0 : 16.0,
               right: isSmallScreen ? 8.0 : 16.0,
-              bottom: bottomPadding > 0 ? 8.0 : 16.0, // Less bottom padding if there's system navigation
+              bottom: bottomPadding > 0 ? 8.0 : 16.0, //=> less bottom padding if there's system navigation
             ),
             child: GNav(
-              gap: isSmallScreen ? 6 : 10, // Responsive gap
-              activeColor: Colors.white, // Active icon and text color
-              iconSize: isSmallScreen ? 24 : 30, // Responsive icon size
+              gap: isSmallScreen ? 6 : 10, 
+              activeColor: Colors.white, 
+              iconSize: isSmallScreen ? 24 : 30, 
               padding: EdgeInsets.symmetric(
                 horizontal: isSmallScreen ? 12 : 20, 
                 vertical: isSmallScreen ? 8 : 12
-              ), // Responsive padding
-              tabBackgroundColor: Colors.white.withOpacity(0.3), // Background color for active tab
-              color: Colors.white70, // Inactive icon color
+              ),
+              tabBackgroundColor: Colors.white.withOpacity(0.3), 
+              color: Colors.white70, 
               textStyle: TextStyle(
-                color: Colors.white, // Global text color for all tabs
+                color: Colors.white, 
                 fontSize: isSmallScreen ? 12 : 14,
                 fontWeight: FontWeight.w500,
               ),
@@ -121,18 +121,17 @@ class _MainPageScreenState extends State<MainPageScreen> {
                   iconColor: _selectedIndex == 3 ? Colors.white : Colors.white70,
                 ),
               ],
-              selectedIndex: _selectedIndex, // Set the selected index
-              onTabChange: _onItemTapped, // Call the tap handler
-              rippleColor: Colors.white.withOpacity(0.5), // Ripple effect color
-              backgroundColor: Colors.transparent, // Make the background transparent
-              curve: Curves.easeInOut, // Animation curve
-              duration: const Duration(milliseconds: 300), // Animation duration
+              selectedIndex: _selectedIndex, 
+              onTabChange: _onItemTapped,
+              rippleColor: Colors.white.withOpacity(0.5), 
+              backgroundColor: Colors.transparent, 
+              curve: Curves.easeInOut, 
+              duration: const Duration(milliseconds: 300), 
             ),
           ),
         ),
       ),
       extendBody: true,
-      // Ensure the body doesn't overlap with the bottom navigation
       resizeToAvoidBottomInset: false,
     );
   }
