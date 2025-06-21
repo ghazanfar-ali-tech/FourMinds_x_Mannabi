@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mini_shopping_app/routes/app_routes.dart';
 import 'package:mini_shopping_app/views/add_products.dart';
+import 'package:mini_shopping_app/views/auth_screens/forgot_password.dart';
 import 'package:mini_shopping_app/views/auth_screens/login_screen.dart';
 import 'package:mini_shopping_app/views/auth_screens/signup.dart';
 import 'package:mini_shopping_app/views/bottom_navigation_page/main_page_screen.dart';
@@ -28,6 +29,9 @@ class AppRouteGenerator {
         return MaterialPageRoute(builder: (_) => const MyProfileScreen());
       case AppRoutes.mainPage:
         return MaterialPageRoute(builder: (_) => const MainPageScreen());  
+      case AppRoutes.forgotPassword:
+        return MaterialPageRoute(builder: (_) => const ForgotPasswordScreen());  
+
       default:
         return MaterialPageRoute(
           builder: (_) => const Scaffold(

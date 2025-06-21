@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mini_shopping_app/models/product_model.dart';
 import 'package:mini_shopping_app/routes/app_routes.dart';
-import 'package:mini_shopping_app/views/saved_product_screen.dart';
 import 'package:mini_shopping_app/widgets/widgets.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';

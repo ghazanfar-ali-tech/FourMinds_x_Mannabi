@@ -1,9 +1,21 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mini_shopping_app/routes/app_route_generator.dart';
 import 'package:mini_shopping_app/routes/app_routes.dart';
 
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  await Firebase.initializeApp(
+      options: const FirebaseOptions(
+      apiKey: "AIzaSyC9R9dZxKj8f5wB4-flxcj6hSvjKDUltOU",
+      appId: "1:349199240646:android:73bc292b436938defd76c7",
+      messagingSenderId: "349199240646",
+      projectId: "shopingapp-dfb3b",
+    ),
+  );
   runApp(const MyApp());
 }
 

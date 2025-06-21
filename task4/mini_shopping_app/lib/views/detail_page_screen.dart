@@ -6,7 +6,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mini_shopping_app/models/cart_models.dart';
 import 'package:mini_shopping_app/routes/app_routes.dart';
 import 'package:mini_shopping_app/services/cart_services.dart';
-import 'package:mini_shopping_app/views/buy_now_screen.dart';
 import 'package:mini_shopping_app/widgets/round_button.dart';
 import 'package:readmore/readmore.dart';
 
