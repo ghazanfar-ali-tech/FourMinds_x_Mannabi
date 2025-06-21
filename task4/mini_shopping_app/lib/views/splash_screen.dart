@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:mini_shopping_app/routes/app_routes.dart';
-import 'package:mini_shopping_app/views/auth_screens/login_screen.dart';
+import 'package:mini_shopping_app/services/firebase_services.dart';
+
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -13,16 +13,11 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
 
 
+ FireBaseServices splashScreen = FireBaseServices();
   @override
   void initState() {
     super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Future.delayed(const Duration(seconds: 10), () {
-      //  Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
-         Navigator.pushNamed(context, AppRoutes.login);
-      });
-    });
+    splashScreen.isLogin(context);
   }
 
   @override
@@ -31,7 +26,10 @@ class _SplashScreenState extends State<SplashScreen> {
       // appBar: AppBar(
       //   title: const Text('Splash Screen'),
       // ),
-      body: Center(child: Lottie.asset('assets/lotties/loading_beautiful.json')),
+      // backgroundColor: Color(0xFF008000),
+      body: Center(child: Lottie.asset(
+         width: MediaQuery.of(context).size.width * 0.9,
+        'assets/lotties/loading_beautiful.json')),
     );
   }
 }

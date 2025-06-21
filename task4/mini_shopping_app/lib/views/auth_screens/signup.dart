@@ -1,10 +1,12 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mini_shopping_app/routes/app_routes.dart';
-
 import 'package:mini_shopping_app/widgets/round_button.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:mini_shopping_app/widgets/utils.dart';
+
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -20,8 +22,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController usernameController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-  bool loading = false;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
+  bool loading = false;
+  FirebaseAuth auth = FirebaseAuth.instance;
+  bool _obscurePassword = true;
 
   @override
   void dispose() {
@@ -37,7 +42,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     var screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      
+      backgroundColor: Colors.white,
       body: 
      SizedBox(
           height: screenHeight,
@@ -69,13 +74,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
   ),
 ),
  Positioned(
-                      top: 325,
+                      top: 250,
                       left: 0,
                       right: 0,
                       bottom: 0,
                       child: 
                      Center(
-                      /////////////////////////
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
            decoration: const BoxDecoration(
@@ -149,37 +153,49 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height*0.02,),
-                RoundButton(
-                  width: MediaQuery.of(context).size.width * 0.8,
+                 RoundButton(
                   height: MediaQuery.of(context).size.width * 0.13,
-                  
-                  gradient: const LinearGradient(
+                  width: MediaQuery.of(context).size.width * 0.8,
+            title: 'Sign up',
+              gradient: const LinearGradient(
               colors: [Colors.blueAccent, Colors.black],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
           ),
-                  title: 'Sign Up',
-                  loading: loading,
-                  onPress: () async{
-                    if (_formKey.currentState!.validate()) {
-    setState(() {
-      loading = true;
-    });
+            loading: loading,
+             onPress: (){
+            if(_formKey.currentState!.validate()){
+              setState(() {
+                loading = true;
+              });
+              final navigator = Navigator.of(context);
+              auth.createUserWithEmailAndPassword(
+                        email: emailController.text,
+                        password: passwordController.text,
+                      ).then((value) {
+                        // Save user data to Firestore
+                        _firestore.collection('users').doc(value.user!.uid).set({
+                          'username': usernameController.text,
+                          'email': emailController.text,
+                          'country': countryController.text,
+                          'password': passwordController.text,
+                          'uid': value.user!.uid,
+                        }).then((_) {
+                          setState(() {
+                            loading = false;
+                          });
+                           navigator.pushNamed(AppRoutes.login);
+                        });
+                      }).onError((error, stackTrace) {
+                        Utils.toastMessage(error.toString());
+                        setState(() {
+                          loading = false;
+                        });
+                      });
 
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('username', usernameController.text.trim());
-    await prefs.setString('email', emailController.text.trim());
-    await prefs.setString('country', countryController.text.trim());
 
-    setState(() {
-      loading = false;
-    });
-                   // Navigator.push(context, MaterialPageRoute(builder:(context)=> LoginScreen()));
-                    Navigator.pushNamed(context, AppRoutes.login);
-                    
-                    }
-                  },
-                ),
+            }
+          }),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -218,13 +234,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }) {
     return TextFormField(
       controller: controller,
-      obscureText: obscureText,
+      obscureText: hintText == 'Password' ? _obscurePassword : obscureText,
        decoration: InputDecoration(
   prefixIcon: Icon(icon),
   hintText: hintText,
   filled: true,
   fillColor: Colors.white,
-  contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12), // ✅ Add this line
+  contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12), 
+   suffixIcon: hintText == 'Password'
+          ? IconButton(
+              icon: Icon(
+                _obscurePassword ? Icons.visibility_off : Icons.visibility,
+                color: Colors.grey,
+              ),
+              onPressed: () {
+                setState(() {
+                  _obscurePassword = !_obscurePassword;
+                });
+              },
+            )
+          : null,
   border: OutlineInputBorder(
     borderRadius: BorderRadius.circular(10.0),
     borderSide: BorderSide.none,

@@ -7,4 +7,5 @@ class AppRoutes {
   static const String buyNow = '/buyNow';
   static const String myProfile = '/myProfile';
   static const String mainPage = '/mainPage';
+  static const String forgotPassword = '/forgotPassword';
 }
