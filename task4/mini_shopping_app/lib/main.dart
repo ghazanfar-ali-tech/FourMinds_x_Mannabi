@@ -1,19 +1,21 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mini_shopping_app/routes/app_route_generator.dart';
 import 'package:mini_shopping_app/routes/app_routes.dart';
 
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   await Firebase.initializeApp(
-      options: const FirebaseOptions(
-      apiKey: "AIzaSyC9R9dZxKj8f5wB4-flxcj6hSvjKDUltOU",
-      appId: "1:349199240646:android:73bc292b436938defd76c7",
-      messagingSenderId: "349199240646",
-      projectId: "shopingapp-dfb3b",
+      options: FirebaseOptions(
+      apiKey: dotenv.env['API_KEY']!,
+      appId: dotenv.env['APP_ID']!,
+      messagingSenderId: dotenv.env['MESSAGING_SENDER_ID']!,
+      projectId: dotenv.env['PROJECT_ID']!,
     ),
   );
   runApp(const MyApp());
