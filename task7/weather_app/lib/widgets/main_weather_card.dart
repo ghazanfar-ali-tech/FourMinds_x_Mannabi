@@ -3,10 +3,12 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'package:weather_app/providers/data_provider.dart';
+import 'package:weather_app/widgets/error_content.dart';
 
 class MainWeatherCard extends StatefulWidget {
   final Animation<double>? weatherIconAnimation;
   final IconData Function(String) getWeatherIcon;
+  
 
   const MainWeatherCard({
     super.key,
@@ -19,6 +21,7 @@ class MainWeatherCard extends StatefulWidget {
 }
 
 class _MainWeatherCardState extends State<MainWeatherCard> {
+  
   @override
   void initState() {
     super.initState();
@@ -35,9 +38,16 @@ class _MainWeatherCardState extends State<MainWeatherCard> {
       builder: (context, provider, _) {
         final weather = provider.weatherData;
 
-        if (provider.isLoading || weather == null) {
+        if (provider.isLoading ) {
           return _buildShimmerCard();
         }
+        if (provider.errorMessage != null) {
+        return ErrorContent(message: provider.errorMessage!);
+      }
+        if (weather == null) {
+        return ErrorContent(message: 'Something went wrong.');
+      }
+
 
         return Container(
           width: double.infinity,
@@ -460,6 +470,8 @@ class _ShimmerWidgetState extends State<ShimmerWidget> with SingleTickerProvider
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<DataProvider>(context);
+    final condition = provider.weatherData?.current?.condition?.text ?? '';
     return AnimatedBuilder(
       animation: _animation,
       builder: (context, child) {

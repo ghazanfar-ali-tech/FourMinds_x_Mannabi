@@ -76,9 +76,8 @@ Widget buildPage1() {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 32.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Spacer(),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.11,),
               Container(
                 height: 280,
                 width: 280,
@@ -91,10 +90,13 @@ Widget buildPage1() {
                   ),
                 ),
                 child: Center(
-                  child: Lottie.asset(
-                    'assets/weather_alert.json',
-                    width: 200,
-                    height: 200,
+                  child: Container(
+                    decoration: BoxDecoration(),
+                    child: Lottie.asset(
+                      'assets/weather_alert.json',
+                      width: 300,
+                      height: 300,
+                    ),
                   ),
                 ),
               ),

@@ -15,6 +15,7 @@ class DetailedWeatherPage extends StatelessWidget {
     final weather = dataProvider.weatherData;
     final isLoading = dataProvider.isLoading || weather == null;
     final condition = weather?.current?.condition?.text ?? '';
+    
 
     return Scaffold(
       appBar: AppBar(
@@ -54,7 +55,7 @@ class DetailedWeatherPage extends StatelessWidget {
                   const SizedBox(height: 10),
                   _buildLocationHeader(weather, isLoading),
                   const SizedBox(height: 24),
-                  _buildCurrentWeatherCard(weather, isLoading),
+                  _buildCurrentWeatherCard(context, weather, isLoading),
                   const SizedBox(height: 20),
                   _buildSectionTitle('Weather Gauges'),
                   const SizedBox(height: 12),
@@ -141,7 +142,7 @@ class DetailedWeatherPage extends StatelessWidget {
     );
   }
 
-  Widget _buildCurrentWeatherCard(dynamic weather, bool isLoading) {
+  Widget _buildCurrentWeatherCard(BuildContext context, dynamic weather, bool isLoading) {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(24),
@@ -170,53 +171,58 @@ class DetailedWeatherPage extends StatelessWidget {
       child: isLoading
           ? _buildCurrentWeatherShimmer()
           : Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '${weather?.current?.tempC?.toStringAsFixed(0) ?? '--'}°',
-                          style: const TextStyle(
-                            fontSize: 48,
-                            fontWeight: FontWeight.w800,
-                            color: Colors.white,
-                          ),
-                        ),
-                        Text(
-                          weather?.current?.condition?.text ?? 'Unknown',
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.white.withOpacity(0.9),
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Icon(
-                          _getWeatherIcon(weather?.current?.condition?.code),
-                          size: 64,
-                          color: Colors.white.withOpacity(0.9),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          'Feels like ${weather?.current?.feelslikeC?.toStringAsFixed(0) ?? '--'}°',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.white.withOpacity(0.8),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+  children: [
+    Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Flexible(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                '${weather?.current?.tempC?.toStringAsFixed(0) ?? '--'}°',
+                style: TextStyle(
+                  fontSize: MediaQuery.of(context).size.width * 0.12, // ~48px on 400px width
+                  fontWeight: FontWeight.w800,
+                  color: Colors.white,
                 ),
-              ],
+              ),
+              Text(
+                weather?.current?.condition?.text ?? 'Unknown',
+                style: TextStyle(
+                  fontSize: MediaQuery.of(context).size.width * 0.045, // ~18px
+                  color: Colors.white.withOpacity(0.9),
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+        ),
+
+        // Right column: Weather icon + Feels like
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Icon(
+              _getWeatherIcon(weather?.current?.condition?.code),
+              size: MediaQuery.of(context).size.width * 0.16, // Responsive icon size (~64px on 400px)
+              color: Colors.white.withOpacity(0.9),
             ),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.01), // Responsive spacing
+            Text(
+              'Feels like ${weather?.current?.feelslikeC?.toStringAsFixed(0) ?? '--'}°',
+              style: TextStyle(
+                fontSize: MediaQuery.of(context).size.width * 0.035, // ~14px
+                color: Colors.white.withOpacity(0.8),
+              ),
+            ),
+          ],
+        ),
+      ],
+    ),
+  ],
+)
+,
     );
   }
 
@@ -343,210 +349,7 @@ class DetailedWeatherPage extends StatelessWidget {
     );
   }
 
-  Widget _buildTemperatureChart(dynamic weather, bool isLoading) {
-    if (isLoading) {
-      return Container(
-        height: 250,
-        child: _buildShimmerCard(),
-      );
-    }
-
-    final hourlyData = weather?.forecast?.forecastday?[0]?.hour?.take(12)?.toList() ?? [];
-    if (hourlyData.isEmpty) {
-      return Container(
-        height: 250,
-        child: const Text(
-          'No hourly data available',
-          style: TextStyle(color: Colors.white, fontSize: 16),
-        ),
-      );
-    }
-
-    final temperatureData = hourlyData.asMap().entries.map((entry) {
-      final index = entry.key;
-      final hour = entry.value;
-      return ChartData(
-        time: hour.time?.split(' ')[1]?.substring(0, 5) ?? '${index.toString().padLeft(2, '0')}:00',
-        temperature: hour.tempC?.toDouble() ?? 0.0,
-        humidity: hour.humidity?.toDouble() ?? 0.0,
-      );
-    }).toList();
-
-    return Container(
-      height: 250,
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            Colors.white.withOpacity(0.2),
-            Colors.white.withOpacity(0.1),
-          ],
-        ),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: Colors.white.withOpacity(0.3),
-          width: 1,
-        ),
-      ),
-      child: SfCartesianChart(
-        plotAreaBorderWidth: 0,
-        primaryXAxis: CategoryAxis(
-          majorGridLines: const MajorGridLines(width: 0),
-          labelStyle: const TextStyle(color: Colors.white70, fontSize: 10),
-          interval: 2,
-        ),
-        primaryYAxis: NumericAxis(
-          majorGridLines: MajorGridLines(width: 0.5, color: Colors.white24),
-          labelStyle: const TextStyle(color: Colors.white70, fontSize: 10),
-          name: 'Temperature',
-          title: AxisTitle(
-            text: 'Temperature (°C)',
-            textStyle: const TextStyle(color: Colors.white70, fontSize: 12),
-          ),
-        ),
-        axes: <ChartAxis>[
-          NumericAxis(
-            name: 'Humidity',
-            opposedPosition: true,
-            majorGridLines: const MajorGridLines(width: 0),
-            labelStyle: const TextStyle(color: Colors.white70, fontSize: 10),
-            title: AxisTitle(
-              text: 'Humidity (%)',
-              textStyle: const TextStyle(color: Colors.white70, fontSize: 12),
-            ),
-          ),
-        ],
-        legend: Legend(
-          isVisible: true,
-          textStyle: const TextStyle(color: Colors.white),
-          position: LegendPosition.top,
-        ),
-        tooltipBehavior: TooltipBehavior(enable: true),
-        series: <CartesianSeries<ChartData, String>>[
-          LineSeries<ChartData, String>(
-            name: 'Temperature (°C)',
-            dataSource: temperatureData,
-            xValueMapper: (ChartData data, _) => data.time,
-            yValueMapper: (ChartData data, _) => data.temperature,
-            color: Colors.orange,
-            width: 3,
-            markerSettings: const MarkerSettings(
-              isVisible: true,
-              color: Colors.orange,
-              borderColor: Colors.white,
-              borderWidth: 2,
-            ),
-          ),
-          LineSeries<ChartData, String>(
-            name: 'Humidity (%)',
-            dataSource: temperatureData,
-            xValueMapper: (ChartData data, _) => data.time,
-            yValueMapper: (ChartData data, _) => data.humidity,
-            yAxisName: 'Humidity',
-            color: Colors.lightBlue,
-            width: 3,
-            markerSettings: const MarkerSettings(
-              isVisible: true,
-              color: Colors.lightBlue,
-              borderColor: Colors.white,
-              borderWidth: 2,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildWindChart(dynamic weather, bool isLoading) {
-    if (isLoading) {
-      return Container(
-        height: 250,
-        child: _buildShimmerCard(),
-      );
-    }
-
-    final hourlyData = weather?.forecast?.forecastday?[0]?.hour?.take(8)?.toList() ?? [];
-    if (hourlyData.isEmpty) {
-      return Container(
-        height: 250,
-        child: const Text(
-          'No hourly data available',
-          style: TextStyle(color: Colors.white, fontSize: 16),
-        ),
-      );
-    }
-
-    final windData = hourlyData.asMap().entries.map((entry) {
-      final index = entry.key;
-      final hour = entry.value;
-      return WindData(
-        direction: hour.windDir ?? 'N/A',
-        speed: hour.windKph?.toDouble() ?? 0.0,
-        angle: hour.windDegree?.toDouble() ?? (index * 45.0),
-      );
-    }).toList();
-
-    return Container(
-      height: 250,
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            Colors.white.withOpacity(0.2),
-            Colors.white.withOpacity(0.1),
-          ],
-        ),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: Colors.white.withOpacity(0.3),
-          width: 1,
-        ),
-      ),
-      child: SfCartesianChart(
-        plotAreaBorderWidth: 0,
-        primaryXAxis: CategoryAxis(
-          majorGridLines: const MajorGridLines(width: 0),
-          labelStyle: const TextStyle(color: Colors.white70, fontSize: 12),
-        ),
-        primaryYAxis: NumericAxis(
-          majorGridLines: MajorGridLines(width: 0.5, color: Colors.white24),
-          labelStyle: const TextStyle(color: Colors.white70, fontSize: 10),
-          title: AxisTitle(
-            text: 'Wind Speed (km/h)',
-            textStyle: const TextStyle(color: Colors.white70, fontSize: 12),
-          ),
-        ),
-        title: ChartTitle(
-          text: 'Wind Direction Analysis',
-          textStyle: const TextStyle(color: Colors.white, fontSize: 14),
-        ),
-        tooltipBehavior: TooltipBehavior(enable: true),
-        series: <CartesianSeries<WindData, String>>[
-          ColumnSeries<WindData, String>(
-            dataSource: windData,
-            xValueMapper: (WindData data, _) => data.direction,
-            yValueMapper: (WindData data, _) => data.speed,
-            gradient: LinearGradient(
-              begin: Alignment.bottomCenter,
-              end: Alignment.topCenter,
-              colors: [Colors.cyan.withOpacity(0.3), Colors.cyan],
-            ),
-            borderRadius: const BorderRadius.all(Radius.circular(4)),
-            dataLabelSettings: const DataLabelSettings(
-              isVisible: true,
-              textStyle: TextStyle(color: Colors.white, fontSize: 10),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildAtmosphericChart(dynamic weather, bool isLoading) {
+   Widget _buildAtmosphericChart(dynamic weather, bool isLoading) {
     if (isLoading) {
       return Container(
         height: 200,

@@ -32,7 +32,9 @@ Widget getWeatherLottie(String condition) {
     );
     
   } else if (condition.contains('thunder')) {
-    return Lottie.asset('assets/thunder.json', fit: BoxFit.cover, repeat: true);
+    return Container(
+      margin: const EdgeInsets.only(left:30.0,bottom: 200.0),
+      child: Lottie.asset('assets/thunder.json', fit: BoxFit.contain, repeat: true));
   }
   
 

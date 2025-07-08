@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_app/providers/data_provider.dart';
+import 'package:weather_app/providers/forecastProvider.dart';
 import 'package:weather_app/providers/on_boarding_providers.dart';
 import 'package:weather_app/views/get_started_screen.dart';
 
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => DataProvider(),),
         ChangeNotifierProvider(create: (_) => OnboardingProvider()),
+        ChangeNotifierProvider(create: (_) => ForecastProvider()),
 
       ],
       child:  MaterialApp(

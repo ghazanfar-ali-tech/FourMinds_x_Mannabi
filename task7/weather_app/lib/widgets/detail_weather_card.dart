@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -9,87 +10,100 @@ class WeatherDetailsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<DataProvider>(context);
-    final weather = provider.weatherData;
+    return Consumer<DataProvider>(
+      builder: (context, provider, child) {
+        final weather = provider.weatherData;
+        final isLoading = provider.isLoading;
 
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const DetailedWeatherPage(),
-          ),
-        );
-      },
-      child: Container(
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.15),
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: Colors.white.withOpacity(0.2)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              blurRadius: 15,
-              offset: const Offset(0, 5),
-            ),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Weather Details',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-                color: Colors.white,
+        return GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const DetailedWeatherPage(),
               ),
-            ),
-            const SizedBox(height: 15),
-            provider.isLoading || weather == null
-                ? _buildShimmerGrid()
-                : GridView.count(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    crossAxisCount: 2,
-                    childAspectRatio: 1.9,
-                    crossAxisSpacing: 15,
-                    mainAxisSpacing: 15,
-                    children: [
-                      _buildDetailItem(Icons.air_rounded, 'Wind', '${weather.current?.windKph ?? "--"} km/h'),
-                      _buildDetailItem(Icons.wb_sunny_rounded, 'UV Index', '${weather.current?.uv ?? "--"}'),
-                      _buildDetailItem(Icons.visibility_rounded, 'Visibility', '${weather.current?.visKm ?? "--"} km'),
-                      _buildDetailItem(Icons.thermostat_rounded, 'Feels Like', '${weather.current?.feelslikeC?.toStringAsFixed(0) ?? "--"}°'),
-                    ],
-                  ),
-            const SizedBox(height: 15),
-            provider.isLoading || weather == null
-                ? _buildShimmerChart()
-                : _buildAtmosphericChart(weather),
-            const SizedBox(height: 15),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Tap for more details',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.white.withOpacity(0.7),
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Icon(
-                  Icons.arrow_forward_rounded,
-                  color: Colors.white.withOpacity(0.7),
-                  size: 20,
+            );
+          },
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.15),
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(color: Colors.white.withOpacity(0.2)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  blurRadius: 15,
+                  offset: const Offset(0, 5),
                 ),
               ],
             ),
-          ],
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Weather Details',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
+                ),
+                const SizedBox(height: 15),
+                isLoading || weather == null
+                    ? _buildShimmerGrid()
+                    : GridView.count(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        crossAxisCount: 2,
+                        childAspectRatio: 1.9,
+                        crossAxisSpacing: 15,
+                        mainAxisSpacing: 15,
+                        children: [
+                          _buildDetailItem(Icons.air_rounded, 'Wind', '${weather.current?.windKph ?? "--"} km/h'),
+                          _buildDetailItem(Icons.wb_sunny_rounded, 'UV Index', '${weather.current?.uv ?? "--"}'),
+                          _buildDetailItem(Icons.visibility_rounded, 'Visibility', '${weather.current?.visKm ?? "--"} km'),
+                          _buildDetailItem(Icons.thermostat_rounded, 'Feels Like', '${weather.current?.feelslikeC?.toStringAsFixed(0) ?? "--"}°'),
+                        ],
+                      ),
+                const SizedBox(height: 15),
+                isLoading || weather == null
+                    ? _buildShimmerChart()
+                    : _buildAtmosphericChart(weather),
+                const SizedBox(height: 15),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    AnimatedTextKit(
+      repeatForever: true,
+      pause: const Duration(milliseconds: 1500),
+      animatedTexts: [
+        TyperAnimatedText(
+          'Tap for more details',    
+          textStyle: TextStyle(
+            fontSize: 14,
+            color: Colors.white.withOpacity(0.7),
+            fontWeight: FontWeight.w500,
+          ),
+          speed: const Duration(milliseconds: 50),
         ),
-      ),
+      ],
+      isRepeatingAnimation: true,
+      totalRepeatCount: 999,
+    ),
+    const SizedBox(width: 8),
+    Icon(
+      Icons.arrow_forward_rounded,
+      color: Colors.white.withOpacity(0.7),
+      size: 20,
+    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 
@@ -113,7 +127,7 @@ class WeatherDetailsCard extends StatelessWidget {
                 Text(
                   label,
                   style: TextStyle(
-                    fontSize: 12,
+                    fontSize: 14,
                     color: Colors.white.withOpacity(0.7),
                     fontWeight: FontWeight.w400,
                   ),
@@ -121,7 +135,7 @@ class WeatherDetailsCard extends StatelessWidget {
                 Text(
                   value,
                   style: const TextStyle(
-                    fontSize: 16,
+                    fontSize: 14,
                     color: Colors.white,
                     fontWeight: FontWeight.w600,
                   ),
