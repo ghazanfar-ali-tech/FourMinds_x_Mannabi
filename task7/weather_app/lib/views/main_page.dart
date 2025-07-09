@@ -236,16 +236,14 @@ void mapButtonTapHandle() async {
       appBar: _buildAppBar(isDay),
       body: Stack(
         children: [
-          // Background
           Container(decoration: getWeatherBackground(condition)),
-          // Weather Lottie Animation
           Positioned.fill(
             child: Opacity(
               opacity: 0.3,
               child: getWeatherLottie(condition),
             ),
           ),
-          // Main Content
+   
           SafeArea(
             child: _buildWeatherContent(screenWidth),
           ),
@@ -331,7 +329,7 @@ void mapButtonTapHandle() async {
         ),
       ),
     actions: [
-  // Theme toggle button
+
   Container(
     margin: const EdgeInsets.only(right: 8),
     decoration: BoxDecoration(
@@ -349,7 +347,6 @@ void mapButtonTapHandle() async {
     ),
   ),
 
-  // ✅ Fixed Animated Map Button
   ScaleTransition(
     scale: mapButtonSize,
     child: InkWell(

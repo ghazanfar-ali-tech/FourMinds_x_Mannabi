@@ -37,10 +37,10 @@ class _EnhancedWeatherMapState extends State<EnhancedWeatherMap>
   late Animation<double> _fadeAnimation;
   late Animation<double> _fabMenuAnimation;
 
-  // Debouncer for search to prevent excessive API calls
+  //=> Debouncer for search to prevent excessive API calls
   late Debouncer _searchDebouncer;
 
-  // Cache for city weather data
+  //=> Cache for city weather data
   final Map<String, WeatherMarker> _cityWeatherCache = {};
 
   @override
@@ -489,7 +489,7 @@ Widget _buildTopControls() {
             HapticFeedback.selectionClick();
           },
           onChanged: (value) {
-            setState(() {}); // Update suffixIcon visibility
+            setState(() {}); //=> Update suffixIcon visibility
             _searchDebouncer.debounce(
               duration: const Duration(milliseconds: 500),
               onDebounce: () => _handleSearch(value),

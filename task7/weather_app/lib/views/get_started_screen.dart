@@ -74,6 +74,8 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       parent: skipButtonController,
       curve: Curves.easeInOut,
     ));
+    
+   
   }
 
   void buttonTapHandle() async {
@@ -191,7 +193,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
           ScaleTransition(
             scale: buttonSize,
             child: ElevatedButton(
-              onPressed: buttonTapHandle, // Changed from _nextPage to buttonTapHandle
+              onPressed: buttonTapHandle,
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white,
                 foregroundColor: currentPage == 0

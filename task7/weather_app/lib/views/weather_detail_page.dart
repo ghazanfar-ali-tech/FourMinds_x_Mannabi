@@ -198,8 +198,6 @@ class DetailedWeatherPage extends StatelessWidget {
             ],
           ),
         ),
-
-        // Right column: Weather icon + Feels like
         Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [

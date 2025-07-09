@@ -4,6 +4,7 @@ import 'package:weather_app/providers/data_provider.dart';
 import 'package:weather_app/providers/forecastProvider.dart';
 import 'package:weather_app/providers/on_boarding_providers.dart';
 import 'package:weather_app/views/get_started_screen.dart';
+import 'package:weather_app/views/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
     
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: OnboardingScreen(),
+      home: SplashScreen(),
     ));
   }
 }
