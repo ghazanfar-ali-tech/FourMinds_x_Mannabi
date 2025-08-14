@@ -1,0 +1,83 @@
+studypro/.dart_tool
+studypro/build
+studypro/asif
+studypro/.idea
+studypro/.flutter-plugins
+studypro/.flutter-plugins-dependencies
+
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+studypro/.idea/
+
+# Visual Studio Code related
+studypro/.vscode/
+
+# Flutter/Dart/Pub related
+studypro/**/doc/api/
+studypro/.dart_tool/
+studypro/.flutter-plugins
+studypro/.packages
+studypro/.pub-cache/
+studypro/.pub/
+studypro/build/
+
+# Android related
+studypro/**/android/**/gradle-wrapper.jar
+studypro/**/android/.gradle
+studypro/**/android/captures/
+studypro/**/android/gradlew
+studypro/**/android/gradlew.bat
+studypro/**/android/local.properties
+studypro/**/android/**/GeneratedPluginRegistrant.java
+
+# iOS/XCode related
+studypro/**/ios/**/*.mode1v3
+studypro/**/ios/**/*.mode2v3
+studypro/**/ios/**/*.moved-aside
+studypro/**/ios/**/*.pbxuser
+studypro/**/ios/**/*.perspectivev3
+studypro/**/ios/**/*sync/
+studypro/**/ios/**/.sconsign.dblite
+studypro/**/ios/**/.tags*
+studypro/**/ios/**/.vagrant/
+studypro/**/ios/**/DerivedData/
+studypro/**/ios/**/Icon?
+studypro/**/ios/**/Pods/
+studypro/**/ios/**/.symlinks/
+studypro/**/ios/**/profile
+studypro/**/ios/**/xcuserdata
+studypro/**/ios/.generated/
+studypro/**/ios/Flutter/App.framework
+studypro/**/ios/Flutter/Flutter.framework
+studypro/**/ios/Flutter/Generated.xcconfig
+studypro/**/ios/Flutter/app.flx
+studypro/**/ios/Flutter/app.zip
+studypro/**/ios/Flutter/flutter_assets/
+studypro/**/ios/ServiceDefinitions.json
+studypro/**/ios/Runner/GeneratedPluginRegistrant.*
+
+# Exceptions to above rules
+!studypro/**/ios/**/default.mode1v3
+!studypro/**/ios/**/default.mode2v3
+!studypro/**/ios/**/default.pbxuser
+!studypro/**/ios/**/default.perspectivev3
+!/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+
+
+studypro/lib/views/Gemini_AI/constants.dart
+studypro/android/app/google-services.json
+studypro/lib/private_data.dart
+
