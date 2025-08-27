@@ -66,7 +66,7 @@
 
 <p align="center">
 
-&nbsp; <img src="images/activity\_diagram.jpeg" alt="Activity Diagram" width="600"/>
+&nbsp; <img src="images/activity_diagram.jpeg" alt="Activity Diagram" width="600"/>
 
 </p>
 
@@ -76,7 +76,7 @@
 
 <p align="center">
 
-&nbsp; <img src="images/flow\_chart.png" alt="Flowchart" width="600"/>
+&nbsp; <img src="images/flow_chart.png" alt="Flowchart" width="600"/>
 
 </p>
 
