@@ -1,250 +1,152 @@
-\# 📘 Study Pro – E-Learning Platform
+# 📘 Study Pro – AI-Powered E-Learning Platform
 
-
-
-\## 📑 Table of Contents
-
-1\. \[Project Overview](#project-overview)
-
-2\. \[Architecture \& System Design](#architecture--system-design)
-
-3\. \[User Interface Documentation](#user-interface-documentation)
-
-4\. \[API Integration](#api-integration)
-
-
+Study Pro is a next-generation **e-learning platform** that bridges the gap between **teachers and students** through comprehensive course management, **AI-powered learning tools**, and an intuitive user experience.
 
 ---
 
-
-
-\## 1. Project Overview
-
-
-
-\### 📌 Project Summary
-
-\*\*Study Pro\*\* is an online learning platform that connects teachers and students through comprehensive course management and \*\*AI-powered features\*\*.  
-
-
-
-\### ✨ Key Features
-
-\- \*\*Course Management\*\*: Video uploads, PDF resources, external links  
-
-\- \*\*User Dashboards\*\*: Separate interfaces for students and teachers  
-
-\- \*\*AI Integration\*\*: Gemini-powered chat, PDF analysis, grammar checking, quiz generation  
-
-\- \*\*Social Features\*\*: Real-time messaging, reviews, ratings  
-
-\- \*\*Content Access\*\*: Video streaming with progress tracking  
-
-
-
-\### 🛠 Technology Stack
-
-\- \*\*Frontend\*\*: Flutter  
-
-\- \*\*Backend\*\*: Firebase Auth, Firestore  
-
-\- \*\*Database\*\*: NoSQL Database  
-
-\- \*\*AI Integration\*\*: Google Gemini API  
-
-
+## 📑 Table of Contents
+1. [🚀 Project Overview](#-project-overview)
+2. [📐 Architecture & System Design](#-architecture--system-design)
+3. [📱 User Interface Documentation](#-user-interface-documentation)
+4. [🔗 API Integration](#-api-integration)
+5. [📄 Documentation & Resources](#-documentation--resources)
 
 ---
 
+## 🚀 Project Overview
 
+### 📌 Summary
+**Study Pro** is designed to make online learning **interactive, personalized, and efficient**.  
+It empowers both **students** and **teachers** with modern tools, progress tracking, and AI-driven support.
 
-\## 2. Architecture \& System Design
+### ✨ Key Features
+- 🎥 **Course Management**: Upload videos, PDFs, and external resources  
+- 🧑‍🎓 **Role-Based Dashboards**: Dedicated interfaces for students & teachers  
+- 🤖 **AI Features** (Powered by Google Gemini API):  
+  - AI Chat (Text & Images)  
+  - PDF Understanding (Ask questions directly from docs)  
+  - Grammar Checking  
+  - Quiz Generation  
+- 💬 **Social Learning**: Real-time messaging, reviews, ratings  
+- 📊 **Progress Tracking**: Video completion tracking & performance insights  
 
+### 🛠 Tech Stack
+- **Frontend**: Flutter  
+- **Backend**: Firebase Auth & Firestore  
+- **Database**: NoSQL (Cloud Firestore)  
+- **AI Integration**: Google Gemini API  
 
+---
 
-\### 📊 Activity Diagram
+## 📐 Architecture & System Design
 
+### 📊 Activity Diagram
 <p align="center">
-
-&nbsp; <img src="images/activity_diagram.jpeg" alt="Activity Diagram" width="600"/>
-
+  <img src="images/activity_diagram.jpeg" alt="Activity Diagram" width="600"/>
 </p>
 
-
-
-\### 🔄 Flowchart
-
+### 🔄 Flowchart
 <p align="center">
-
-&nbsp; <img src="images/flow_chart.png" alt="Flowchart" width="600"/>
-
+  <img src="images/flow_chart.png" alt="Flowchart" width="600"/>
 </p>
 
-
-
 ---
 
+## 📱 User Interface Documentation
 
-
-\## 3. User Interface Documentation
-
-
-
-\### 🔐 Authentication Screens (Pic 1 – Light Mode, Pic 2 – Dark Mode)
-
-\- \*\*Login, Sign Up, Forgot Password\*\* integrated with \*\*Firebase Authentication\*\*  
+### 🔐 Authentication Screens
+> Login, Sign Up, Forgot Password – all integrated with **Firebase Authentication**
 
 <p align="center">
-
-&nbsp; <img src="images/Picture1.png" alt="Auth Light" width="300"/>
-
-&nbsp; <img src="images/Picture2.png" alt="Auth Dark" width="300"/>
-
+  <img src="images/Picture1.png" alt="Auth Light" width="300"/>
+  <img src="images/Picture2.png" alt="Auth Dark" width="300"/>
 </p>
-
-
 
 ---
 
-
-
-\### 🏠 Home Screen \& Dashboards (Pic 3 \& 4)
-
-\- \*\*Course Categories\*\*  
-
-\- \*\*Student Abstract Dashboard\*\* (progress overview)  
-
-\- \*\*Detailed Dashboard\*\* (videos watched, skills acquired)  
+### 🏠 Home & Dashboards
+- Course Categories  
+- Student Dashboard (progress overview)  
+- Detailed Insights (videos watched, skills acquired)  
 
 <p align="center">
-
-&nbsp; <img src="images/Picture3.png" alt="Home Light" width="300"/>
-
-&nbsp; <img src="images/Picture4.png" alt="Home Dark" width="300"/>
-
+  <img src="images/Picture3.png" alt="Home Light" width="300"/>
+  <img src="images/Picture4.png" alt="Home Dark" width="300"/>
 </p>
-
-
 
 ---
 
-
-
-\### 📚 Course Details \& Video Player (Pic 5)
-
-\- Course discovery, details, reviews  
-
-\- Structured video playlist with progress tracking  
-
-\- Resource downloads \& external links  
+### 📚 Course Details & Video Player
+- Course discovery & structured video playlists  
+- Reviews & ratings  
+- Resource downloads + external links  
 
 <p align="center">
-
-&nbsp; <img src="images/Picture5.png" alt="Course Screen" width="500"/>
-
+  <img src="images/Picture5.png" alt="Course Screen" width="500"/>
 </p>
-
-
 
 ---
 
-
-
-\### 💬 Chatting Screen (Pic 6)
-
-\- Real-time messaging between students  
-
-\- Simple, structured chat format  
+### 💬 Chatting
+- Real-time messaging between students  
+- Simple, clean, structured chat interface  
 
 <p align="center">
-
-&nbsp; <img src="images/Picture6.png" alt="Chat Screen" width="500"/>
-
+  <img src="images/Picture6.png" alt="Chat Screen" width="500"/>
 </p>
-
-
 
 ---
 
-
-
-\### 🤖 AI-Powered Screen (Pic 7)
-
-\- \*\*Chat with Gemini\*\* (text \& images)  
-
-\- \*\*Chat with PDF\*\* (ask questions about PDF contents)  
-
-\- \*\*Grammar Check\*\* (text improvements)  
-
-\- \*\*Quiz Generation\*\* from prompts  
+### 🤖 AI-Powered Features
+- Chat with Gemini (text & images)  
+- Chat with PDF (document Q&A)  
+- Grammar check & improvements  
+- Automatic quiz generation  
 
 <p align="center">
-
-&nbsp; <img src="images/Picture7.png" alt="AI Screen" width="500"/>
-
+  <img src="images/Picture7.png" alt="AI Screen" width="500"/>
 </p>
-
-
 
 ---
 
-
-
-\### ⚙️ Settings Screen (Pic 8)
-
-\- Profile management \& photo upload  
-
-\- Dark/Light theme switch  
-
-\- Help \& support access  
-
-\- App review \& feedback  
-
-\- Learning streaks for motivation  
-
-\- Secure logout  
+### ⚙️ Settings
+- Profile management (photo upload)  
+- Dark/Light theme toggle  
+- Help & support access  
+- App reviews & feedback  
+- Learning streaks for motivation  
+- Secure logout  
 
 <p align="center">
-
-&nbsp; <img src="images/Picture8.png" alt="Settings Screen" width="500"/>
-
+  <img src="images/Picture8.png" alt="Settings Screen" width="500"/>
 </p>
 
+---
 
+## 🔗 API Integration
+- **Firebase Authentication** → User sign-in & account management  
+- **Firestore Database** → Courses, chats, and user profiles  
+- **Google Gemini API** →  
+  - AI chat (text/image)  
+  - PDF Q&A  
+  - Grammar correction  
+  - Quiz generation  
 
 ---
 
+## 📄 Documentation & Resources
+📕 **Full Project Report (Google Doc)**  
+[View Report](https://docs.google.com/document/d/1vDTlPQiT5QHVJ9r6AWKR028hCWY5Q2qX/edit?usp=sharing)  
 
-
-\## 4. API Integration
-
-
-
-\- \*\*Firebase Authentication\*\* → User sign-in \& account management  
-
-\- \*\*Firestore Database\*\* → Course data, chat messages, user profiles  
-
-\- \*\*Google Gemini API\*\* →  
-
-&nbsp; - AI Chat (text/image inputs)  
-
-&nbsp; - PDF understanding \& Q\&A  
-
-&nbsp; - Grammar correction  
-
-&nbsp; - Quiz generation  
-
-
+🎥 **Demo Video (Google Drive)**  
+[Watch Video](https://drive.google.com/file/d/1Na6Rf-xBW6lTXv_DSmQtJs6qvxm9ZHbD/view?usp=sharing)  
 
 ---
 
-
-
-\## 📄 Documentation
-
-For a complete report including all screenshots, download:  
-
-👉 \[📕 Full Project Report (PDF)](docs/project\_report.pdf)  
+## 👥 Team
+- **Ghazanfar Ali**  
+- **Tahira Kainat**  
 
 
 
+⭐ If you like this project, don’t forget to **star the repo** and share it with others!
